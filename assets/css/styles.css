@@ -1,0 +1,48 @@
+/* Styles additionnels pour mettre les images de projets en évidence */
+
+.project-img-wrapper {
+    height: 340px; /* plus haute pour mieux montrer l'image */
+    border-radius: 18px;
+    overflow: hidden;
+    border: 2px solid rgba(56,189,248,0.12);
+    background: linear-gradient(135deg, rgba(56,189,248,0.03), rgba(99,102,241,0.02));
+    box-shadow: 0 18px 40px rgba(11,18,32,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1), filter 0.4s ease;
+    filter: drop-shadow(0 18px 30px rgba(56,189,248,0.12));
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.06) translateY(-4px);
+    filter: drop-shadow(0 28px 50px rgba(56,189,248,0.18));
+}
+
+/* Accent sur le titre et description du projet */
+.project-info h3 {
+    font-size: 20px;
+    letter-spacing: 0.2px;
+}
+
+.project-info p {
+    color: #cbd5e1;
+}
+
+/* Variante pour image pleine largeur (ex: page d'accueil) */
+.featured-img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(11,18,32,0.65);
+    border: 3px solid rgba(255,255,255,0.02);
+}
+
+@media (max-width: 900px) {
+    .project-img-wrapper { height: 260px; }
+}
