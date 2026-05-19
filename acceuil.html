@@ -61,8 +61,36 @@ nav ul li a:hover::after{width:100%;}
 .primary{background:linear-gradient(135deg,#38bdf8,#818cf8);color:#080f1e;box-shadow:0 8px 24px rgba(56,189,248,0.25);}
 .secondary{border:1px solid rgba(56,189,248,0.3);color:#38bdf8;background:rgba(56,189,248,0.02);}
 .secondary:hover{background:rgba(56,189,248,0.08);}
-.hero-avatar{width:260px;height:260px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:76px;font-weight:800;background:linear-gradient(135deg,#0f2744,#1e1b4b);box-shadow:0 0 40px rgba(56,189,248,0.15);position:relative;flex-shrink:0;}
-.hero-avatar::before{content:'';position:absolute;inset:0;border-radius:24px;padding:1px;background:linear-gradient(135deg,rgba(56,189,248,0.3),transparent);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;}
+
+/* IMAGE PROFILE OPTIMISÉE */
+.hero-avatar-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  flex-shrink: 0;
+}
+.hero-avatar{
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  object-fit: cover;
+  border: 1px solid rgba(56,189,248,0.25);
+  box-shadow: 0 0 40px rgba(56,189,248,0.15);
+  background: linear-gradient(135deg,#0f2744,#1e1b4b);
+}
+.avatar-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 76px;
+  font-weight: 800;
+  background: linear-gradient(135deg,#0f2744,#1e1b4b);
+  border-radius: 28px;
+  z-index: -1;
+  color: white;
+}
 
 /* ===================== */
 /* SECTIONS ET GRILLES   */
@@ -104,6 +132,8 @@ section{padding:90px 8% 30px 8%;}
 .project-card{padding:32px;border-radius:22px;}
 .project-tech{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;}
 .tech-tag{background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.15);padding:4px 10px;border-radius:6px;font-size:11px;color:#7dd3fc;font-weight:500;}
+.project-link{margin-top:auto;padding-top:15px;text-decoration:none;color:#38bdf8;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:0.2s;}
+.project-link:hover{color:#818cf8;transform:translateX(4px);}
 
 /* TABLEAU E4 */
 .table-wrapper{overflow-x:auto;border:1px solid rgba(255,255,255,0.06);border-radius:18px;background:rgba(8,15,30,0.6);backdrop-filter:blur(10px);}
@@ -126,6 +156,10 @@ section{padding:90px 8% 30px 8%;}
 .like-btn:hover{transform:translateY(-4px) scale(1.02);}
 .like-btn.active{background:linear-gradient(135deg,#ff4d6d,#ff758f);color:white;box-shadow:0 8px 24px rgba(255,77,109,0.3);}
 
+/* CONTACT GRID SYSTEM */
+.contact-item{text-decoration:none;color:inherit;display:flex;align-items:center;gap:16px;padding:20px;border-radius:16px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);transition:0.3s;}
+.contact-item:hover{border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.02);transform:translateY(-2px);}
+
 /* FOOTER */
 footer{text-align:center;padding:40px;color:#64748b;border-top:1px solid rgba(255,255,255,0.05);margin-top:60px;font-size:14px;}
 .section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,0.15),transparent);margin:0 8%;}
@@ -144,6 +178,7 @@ nav ul{display:none;flex-direction:column;position:absolute;top:100%;left:0;widt
 nav ul.open{display:flex;}
 section{padding:70px 6% 20px 6%;}
 .title{font-size:32px;}
+.hero-avatar-container {width: 240px; height: 240px;}
 }
 </style>
 </head>
@@ -192,10 +227,16 @@ section{padding:70px 6% 20px 6%;}
     <p>Étudiant en BTS SIO option SLAM, passionné par le développement d'applications web et mobiles. Je conçois des solutions modernes et sécurisées avec PHP, MySQL et JavaScript en appliquant les architectures logicielles MVC et Git.</p>
     <div class="hero-btns">
       <a href="#projets" class="btn primary">Découvrir mes projets</a>
-      <a href="#cv" class="btn secondary">📥 Télécharger mon CV</a>
+      <a href="https://github.com/yassinemounzih232-ux" target="_blank" class="btn secondary">
+        <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        Mon GitHub
+      </a>
     </div>
   </div>
-  <div class="hero-avatar">YM</div>
+  <div class="hero-avatar-container">
+    <img src="photo.jpg" alt="Yassine Mounzih" class="hero-avatar" onerror="this.style.display='none'">
+    <div class="avatar-fallback">YM</div>
+  </div>
 </section>
 
 <div class="section-divider"></div>
@@ -317,6 +358,7 @@ section{padding:70px 6% 20px 6%;}
         <span class="tech-tag">MySQL</span>
         <span class="tech-tag">JavaScript</span>
       </div>
+      <a href="https://github.com/yassinemounzih232-ux" target="_blank" class="project-link">Voir les sources GitHub →</a>
     </div>
     <div class="card project-card">
       <div class="card-icon">📄</div>
@@ -328,6 +370,7 @@ section{padding:70px 6% 20px 6%;}
         <span class="tech-tag">Librairie PDF</span>
         <span class="tech-tag">Git</span>
       </div>
+      <a href="https://github.com/yassinemounzih232-ux" target="_blank" class="project-link">Voir les sources GitHub →</a>
     </div>
   </div>
 </section>
@@ -338,19 +381,12 @@ section{padding:70px 6% 20px 6%;}
 <section id="stage">
   <div class="section-header">
     <h2 class="title">Parcours <span>Professionnel</span></h2>
-    <p class="title-sub">Mes expériences de terrain en environnement informatique</p>
+    <p class="title-sub">Mes expériences de terrain et stages en informatique</p>
   </div>
-  <div class="card">
-    <div class="card-icon">💼</div>
-    <h3 style="font-size: 22px;">Stagiaire en Maintenance Informatique & Développement — Mairie de LIMAY</h3>
-    <div class="formation-period" style="margin-top: 8px;">Période 2022 - 2025 (Périodes de stages cumulées)</div>
-    <p style="margin-top: 15px;">Au sein de la direction des systèmes d'information de la mairie, j'ai accompli diverses missions techniques transversales couvrant le support informatique, les infrastructures et le développement :</p>
-    <ul style="margin-top: 15px; margin-left: 20px; color: #94a3b8; line-height: 1.9; font-size: 14.5px;">
-      <li>• <strong>Développement :</strong> Modification et intégration de modules sur des pages web internes (HTML, CSS, PHP).</li>
-      <li>• <strong>Bases de données :</strong> Construction et exécution de requêtes SQL (MySQL) pour l'extraction de données de maintenance.</li>
-      <li>• <strong>Infrastructure & Réseaux :</strong> Assistance au déploiement réseau, brassage de câbles, adressage et configuration d'OS sur machines physiques et virtuelles.</li>
-      <li>• <strong>Support technique :</strong> Intervention directe au sein des bureaux administratifs et des établissements scolaires rattachés pour le dépannage matériel et logiciel.</li>
-    </ul>
+  <div class="card" style="border-style: dashed; border-color: rgba(56, 189, 248, 0.3); text-align: center; padding: 50px 20px;">
+    <div class="card-icon" style="margin: 0 auto 20px auto;">💼</div>
+    <h3>Période de stage en cours de préparation</h3>
+    <p style="margin-top: 10px; max-width: 500px; margin-left: auto; margin-right: auto;">Contenu en attente de validation technique. Cette section sera complétée suite aux prochaines immersions professionnelles prévues dans le cadre de la formation BTS SIO SLAM.</p>
   </div>
 </section>
 
@@ -374,12 +410,12 @@ section{padding:70px 6% 20px 6%;}
       <tbody>
         <tr>
           <td>Gérer le patrimoine informatique</td>
-          <td>Maintenance infrastructure Mairie de Limay / Administration de machines virtuelles</td>
+          <td>Administration et configuration de machines virtuelles / Versioning de projets</td>
           <td class="status-ok">✔ Validé</td>
         </tr>
         <tr>
           <td>Répondre aux incidents et aux demandes d'assistance</td>
-          <td>Interventions techniques sur le parc de la Mairie de Limay</td>
+          <td>Simulations d'incidents techniques et débogage applicatif local</td>
           <td class="status-ok">✔ Validé</td>
         </tr>
         <tr>
@@ -447,7 +483,7 @@ section{padding:70px 6% 20px 6%;}
   <div class="cv-wrapper">
     <div class="cv-header">
       <h3>📄 Curriculum Vitae — Édition BTS SIO SLAM</h3>
-      <p>Mon parcours condensé au format standard : formations, compétences techniques clés, expériences à la Mairie de Limay ainsi que mes qualités comportementales.</p>
+      <p>Mon parcours condensé au format standard : formations, compétences techniques clés, projets de développement ainsi que mes qualités comportementales.</p>
     </div>
     <div style="text-align:center; margin-top:30px;">
       <a href="CV_Yassine_Mounzih.pdf" download class="btn primary">📥 Télécharger le CV complet (PDF)</a>
@@ -476,11 +512,29 @@ section{padding:70px 6% 20px 6%;}
     <p class="title-sub">Une opportunité, une question ? N'hésitez pas à me joindre</p>
   </div>
   <div class="grid">
-    <div class="card">
+    <a class="contact-item" href="mailto:yassinemounzih232@gmail.com">
       <div class="card-icon">📧</div>
-      <h3>Adresse Email</h3>
-      <p style="font-size:16px; color:#38bdf8; font-weight:500;">yassinemounzih232@gmail.com</p>
-    </div>
+      <div>
+        <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase;">Email</div>
+        <div style="font-size:15px; color:#38bdf8; font-weight:500;">yassinemounzih232@gmail.com</div>
+      </div>
+    </a>
+    <a class="contact-item" href="tel:0744409902">
+      <div class="card-icon">📱</div>
+      <div>
+        <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase;">Téléphone</div>
+        <div style="font-size:15px; color:#cbd5e1; font-weight:500;">07 44 40 99 02</div>
+      </div>
+    </a>
+    <a class="contact-item" href="https://github.com/yassinemounzih232-ux" target="_blank">
+      <div class="card-icon">
+        <svg height="22" width="22" viewBox="0 0 16 16" fill="#38bdf8"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      </div>
+      <div>
+        <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase;">GitHub</div>
+        <div style="font-size:15px; color:#818cf8; font-weight:500;">yassinemounzih232-ux</div>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -499,7 +553,6 @@ burgerBtn.addEventListener('click', () => {
   navLinks.classList.toggle('open');
 });
 
-// Fermeture auto du menu mobile au clic sur un lien nav
 document.querySelectorAll('#navLinks a').forEach(link => {
   link.addEventListener('click', () => {
     navLinks.classList.remove('open');
